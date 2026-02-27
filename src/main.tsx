@@ -5,30 +5,30 @@ import { App } from './app';
 import './index.css';
 
 async function enableMocking() {
-  if (import.meta.env.VITE_APP_ENABLE_API_MOCKING !== 'true') return;
+	if (import.meta.env.VITE_APP_ENABLE_API_MOCKING !== 'true') return;
 
-  const { worker } = await import('./testing/mocks/browser');
-  const { initializeDb } = await import('./testing/mocks/db');
-  const { seedDatabase } = await import('./testing/mocks/seed-data');
+	const { worker } = await import('./testing/mocks/browser');
+	const { initializeDb } = await import('./testing/mocks/db');
+	const { seedDatabase } = await import('./testing/mocks/seed-data');
 
-  await initializeDb();
-  seedDatabase();
+	await initializeDb();
+	seedDatabase();
 
-  return worker.start({
-    onUnhandledRequest: 'bypass',
-    serviceWorker: {
-      url: '/mockServiceWorker.js',
-    },
-  });
+	return worker.start({
+		onUnhandledRequest: 'bypass',
+		serviceWorker: {
+			url: '/mockServiceWorker.js',
+		},
+	});
 }
 
 enableMocking().then(() => {
-  const root = document.getElementById('root');
-  if (!root) throw new Error('Root element not found');
+	const root = document.getElementById('root');
+	if (!root) throw new Error('Root element not found');
 
-  createRoot(root).render(
-    <StrictMode>
-      <App />
-    </StrictMode>,
-  );
+	createRoot(root).render(
+		<StrictMode>
+			<App />
+		</StrictMode>,
+	);
 });

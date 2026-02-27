@@ -10,31 +10,31 @@ import { Spinner } from '@/components/ui/spinner';
 import { queryConfig } from '@/lib/react-query';
 
 type AppProviderProps = {
-  children: React.ReactNode;
+	children: React.ReactNode;
 };
 
 export function AppProvider({ children }: AppProviderProps) {
-  const [queryClient] = React.useState(
-    () => new QueryClient({ defaultOptions: queryConfig }),
-  );
+	const [queryClient] = React.useState(
+		() => new QueryClient({ defaultOptions: queryConfig }),
+	);
 
-  return (
-    <React.Suspense
-      fallback={
-        <div className="flex h-screen w-screen items-center justify-center">
-          <Spinner size="xl" />
-        </div>
-      }
-    >
-      <ErrorBoundary FallbackComponent={MainErrorFallback}>
-        <HelmetProvider>
-          <QueryClientProvider client={queryClient}>
-            {import.meta.env.DEV && <ReactQueryDevtools />}
-            <Notifications />
-            {children}
-          </QueryClientProvider>
-        </HelmetProvider>
-      </ErrorBoundary>
-    </React.Suspense>
-  );
+	return (
+		<React.Suspense
+			fallback={
+				<div className="flex h-screen w-screen items-center justify-center">
+					<Spinner size="xl" />
+				</div>
+			}
+		>
+			<ErrorBoundary FallbackComponent={MainErrorFallback}>
+				<HelmetProvider>
+					<QueryClientProvider client={queryClient}>
+						{import.meta.env.DEV && <ReactQueryDevtools />}
+						<Notifications />
+						{children}
+					</QueryClientProvider>
+				</HelmetProvider>
+			</ErrorBoundary>
+		</React.Suspense>
+	);
 }

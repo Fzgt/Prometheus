@@ -7,38 +7,38 @@ import { type MutationConfig } from '@/lib/react-query';
 import { type Comment } from '@/types/api';
 
 export const createCommentInputSchema = z.object({
-  postId: z.string().min(1),
-  authorName: z.string().min(1, '请输入你的名字').max(50),
-  content: z.string().min(1, '请输入评论内容').max(500),
+	postId: z.string().min(1),
+	authorName: z.string().min(1, '请输入你的名字').max(50),
+	content: z.string().min(1, '请输入评论内容').max(500),
 });
 
 export type CreateCommentInput = z.infer<typeof createCommentInputSchema>;
 
 export const createComment = (data: CreateCommentInput): Promise<Comment> => {
-  return api.post('/api/comments', data);
+	return api.post('/api/comments', data);
 };
 
 type UseCreateCommentOptions = {
-  postId: string;
-  mutationConfig?: MutationConfig<typeof createComment>;
+	postId: string;
+	mutationConfig?: MutationConfig<typeof createComment>;
 };
 
 export const useCreateComment = ({
-  postId,
-  mutationConfig,
+	postId,
+	mutationConfig,
 }: UseCreateCommentOptions) => {
-  const queryClient = useQueryClient();
-  const { addNotification } = useNotifications();
+	const queryClient = useQueryClient();
+	const { addNotification } = useNotifications();
 
-  return useMutation({
-    mutationFn: createComment,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['comments', postId] });
-      addNotification({
-        type: 'success',
-        title: '评论发布成功',
-      });
-    },
-    ...mutationConfig,
-  });
+	return useMutation({
+		mutationFn: createComment,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['comments', postId] });
+			addNotification({
+				type: 'success',
+				title: '评论发布成功',
+			});
+		},
+		...mutationConfig,
+	});
 };

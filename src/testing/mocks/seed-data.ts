@@ -2,20 +2,20 @@ import { db } from './db';
 
 // 为了保持数据幂等，检查是否已经有数据
 export function seedDatabase() {
-  if (db.post.count() > 0) return;
+	if (db.post.count() > 0) return;
 
-  const author = {
-    authorName: 'Your Name',
-    authorAvatar: 'https://avatars.githubusercontent.com/u/1?v=4',
-    authorBio: '前端工程师，专注于 React 生态与工程化实践。',
-  };
+	const author = {
+		authorName: 'Your Name',
+		authorAvatar: 'https://avatars.githubusercontent.com/u/1?v=4',
+		authorBio: '前端工程师，专注于 React 生态与工程化实践。',
+	};
 
-  db.post.create({
-    slug: 'react-hooks-deep-dive',
-    title: 'React Hooks 深度解析：从原理到最佳实践',
-    excerpt:
-      '深入探讨 React Hooks 的实现原理，分析常见误区，总结生产环境中的最佳实践模式。',
-    content: `## 前言
+	db.post.create({
+		slug: 'react-hooks-deep-dive',
+		title: 'React Hooks 深度解析：从原理到最佳实践',
+		excerpt:
+			'深入探讨 React Hooks 的实现原理，分析常见误区，总结生产环境中的最佳实践模式。',
+		content: `## 前言
 
 React Hooks 自 2019 年正式发布以来，彻底改变了我们编写 React 组件的方式。本文将从源码层面解析几个核心 Hook 的工作原理，帮助你真正理解而非只是"会用"。
 
@@ -150,21 +150,21 @@ function useAsync<T>(
 3. **按需使用 memo**：不是越多越好，先测量再优化
 4. **自定义 Hook 是最强武器**：把业务逻辑从 UI 中分离
 `,
-    coverImage:
-      'https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?w=800',
-    tags: ['React', 'Hooks', '最佳实践'],
-    readingTime: 8,
-    publishedAt: new Date('2024-03-15').toISOString(),
-    updatedAt: new Date('2024-03-15').toISOString(),
-    ...author,
-  });
+		coverImage:
+			'https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?w=800',
+		tags: ['React', 'Hooks', '最佳实践'],
+		readingTime: 8,
+		publishedAt: new Date('2024-03-15').toISOString(),
+		updatedAt: new Date('2024-03-15').toISOString(),
+		...author,
+	});
 
-  db.post.create({
-    slug: 'typescript-generics-mastery',
-    title: 'TypeScript 泛型完全指南：从入门到惊艳面试官',
-    excerpt:
-      '系统梳理 TypeScript 泛型的各种用法，包括条件类型、映射类型、infer 关键字，以及在实际项目中的应用场景。',
-    content: `## 为什么需要泛型？
+	db.post.create({
+		slug: 'typescript-generics-mastery',
+		title: 'TypeScript 泛型完全指南：从入门到惊艳面试官',
+		excerpt:
+			'系统梳理 TypeScript 泛型的各种用法，包括条件类型、映射类型、infer 关键字，以及在实际项目中的应用场景。',
+		content: `## 为什么需要泛型？
 
 泛型解决的核心问题是：**在保证类型安全的前提下，编写可复用的代码**。
 
@@ -304,21 +304,21 @@ const newUser = await apiRequest('/users', 'POST', {
 
 掌握泛型的关键是理解它的本质：**类型层面的函数**。条件类型是 if-else，映射类型是 map，infer 是解构赋值。
 `,
-    coverImage:
-      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800',
-    tags: ['TypeScript', '泛型', '类型系统'],
-    readingTime: 12,
-    publishedAt: new Date('2024-02-20').toISOString(),
-    updatedAt: new Date('2024-02-20').toISOString(),
-    ...author,
-  });
+		coverImage:
+			'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800',
+		tags: ['TypeScript', '泛型', '类型系统'],
+		readingTime: 12,
+		publishedAt: new Date('2024-02-20').toISOString(),
+		updatedAt: new Date('2024-02-20').toISOString(),
+		...author,
+	});
 
-  db.post.create({
-    slug: 'zustand-patterns-in-production',
-    title: 'Zustand 生产实践：告别 Redux 样板代码',
-    excerpt:
-      '从基础用法到高级模式，全面介绍 Zustand 在大型项目中的最佳实践，包括切片模式、中间件、持久化和 DevTools 集成。',
-    content: `## 为什么选择 Zustand？
+	db.post.create({
+		slug: 'zustand-patterns-in-production',
+		title: 'Zustand 生产实践：告别 Redux 样板代码',
+		excerpt:
+			'从基础用法到高级模式，全面介绍 Zustand 在大型项目中的最佳实践，包括切片模式、中间件、持久化和 DevTools 集成。',
+		content: `## 为什么选择 Zustand？
 
 在 2024 年，前端状态管理的格局已经发生了巨大变化。**服务器状态**（异步数据）交给 TanStack Query，**客户端状态**则是 Zustand 的主场。
 
@@ -478,21 +478,21 @@ export const useNotifications = create<NotificationsStore>((set) => ({
 
 服务器数据（文章、评论）则全部交给 TanStack Query 管理——这才是 2024 年的最佳实践。
 `,
-    coverImage:
-      'https://images.unsplash.com/photo-1518932945647-7a1c969f8be2?w=800',
-    tags: ['Zustand', '状态管理', 'React'],
-    readingTime: 10,
-    publishedAt: new Date('2024-01-10').toISOString(),
-    updatedAt: new Date('2024-01-10').toISOString(),
-    ...author,
-  });
+		coverImage:
+			'https://images.unsplash.com/photo-1518932945647-7a1c969f8be2?w=800',
+		tags: ['Zustand', '状态管理', 'React'],
+		readingTime: 10,
+		publishedAt: new Date('2024-01-10').toISOString(),
+		updatedAt: new Date('2024-01-10').toISOString(),
+		...author,
+	});
 
-  db.post.create({
-    slug: 'react-query-v5-guide',
-    title: 'TanStack Query v5 实战：掌控服务器状态的艺术',
-    excerpt:
-      '深入了解 TanStack Query v5 的新特性，包括简化的 API、queryOptions 工厂函数、乐观更新最佳实践，以及与 React Router 7 的整合。',
-    content: `## 什么是服务器状态？
+	db.post.create({
+		slug: 'react-query-v5-guide',
+		title: 'TanStack Query v5 实战：掌控服务器状态的艺术',
+		excerpt:
+			'深入了解 TanStack Query v5 的新特性，包括简化的 API、queryOptions 工厂函数、乐观更新最佳实践，以及与 React Router 7 的整合。',
+		content: `## 什么是服务器状态？
 
 在现代前端应用中，状态分为两类：
 - **客户端状态**：UI 状态、用户偏好——用 Zustand
@@ -599,21 +599,21 @@ export const usePosts = (options: GetPostsOptions = {}) => {
 
 这种模式保证了 queryKey 的一致性，避免缓存不命中。
 `,
-    coverImage:
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800',
-    tags: ['TanStack Query', 'React', '数据获取'],
-    readingTime: 11,
-    publishedAt: new Date('2024-01-25').toISOString(),
-    updatedAt: new Date('2024-01-25').toISOString(),
-    ...author,
-  });
+		coverImage:
+			'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800',
+		tags: ['TanStack Query', 'React', '数据获取'],
+		readingTime: 11,
+		publishedAt: new Date('2024-01-25').toISOString(),
+		updatedAt: new Date('2024-01-25').toISOString(),
+		...author,
+	});
 
-  db.post.create({
-    slug: 'react-router-7-complete-guide',
-    title: 'React Router 7 完全指南：从路由到全栈框架',
-    excerpt:
-      'React Router 7 带来了革命性的变化——它现在既是路由库，也是完整的全栈框架。本文梳理核心变化，聚焦 lib 模式下的最佳实践。',
-    content: `## React Router 7 的双模式
+	db.post.create({
+		slug: 'react-router-7-complete-guide',
+		title: 'React Router 7 完全指南：从路由到全栈框架',
+		excerpt:
+			'React Router 7 带来了革命性的变化——它现在既是路由库，也是完整的全栈框架。本文梳理核心变化，聚焦 lib 模式下的最佳实践。',
+		content: `## React Router 7 的双模式
 
 React Router 7 有两种使用方式：
 
@@ -741,21 +741,21 @@ function RootLayout() {
 
 这种数据预取 + 错误处理的模式，让 React Router 7 成为构建高性能 SPA 的最佳选择。
 `,
-    coverImage:
-      'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800',
-    tags: ['React Router', '路由', 'React'],
-    readingTime: 9,
-    publishedAt: new Date('2024-02-05').toISOString(),
-    updatedAt: new Date('2024-02-05').toISOString(),
-    ...author,
-  });
+		coverImage:
+			'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800',
+		tags: ['React Router', '路由', 'React'],
+		readingTime: 9,
+		publishedAt: new Date('2024-02-05').toISOString(),
+		updatedAt: new Date('2024-02-05').toISOString(),
+		...author,
+	});
 
-  db.post.create({
-    slug: 'bulletproof-react-architecture',
-    title: '仿写 bulletproof-react：一个真实项目的架构决策',
-    excerpt:
-      '解析 bulletproof-react 中的每一个架构决策——为什么 feature-based 结构能扛住团队增长？为什么选择 MSW 而不是 JSON Server？',
-    content: `## 为什么需要"防弹"架构？
+	db.post.create({
+		slug: 'bulletproof-react-architecture',
+		title: '仿写 bulletproof-react：一个真实项目的架构决策',
+		excerpt:
+			'解析 bulletproof-react 中的每一个架构决策——为什么 feature-based 结构能扛住团队增长？为什么选择 MSW 而不是 JSON Server？',
+		content: `## 为什么需要"防弹"架构？
 
 随着项目规模增长，最常见的问题是：
 - 文件到处都是，找不到东西
@@ -866,21 +866,21 @@ export const usePosts = (options: GetPostsOptions) =>
 
 当你在看这个项目的代码时，你会发现：每一个文件都有其确定的位置，每一个 import 都有其合理的方向，每一个功能都有其边界。这不是过度设计，而是为了**让代码本身说话**。
 `,
-    coverImage:
-      'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800',
-    tags: ['Architecture', 'React', 'Engineering'],
-    readingTime: 14,
-    publishedAt: new Date('2024-03-01').toISOString(),
-    updatedAt: new Date('2024-03-01').toISOString(),
-    ...author,
-  });
+		coverImage:
+			'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800',
+		tags: ['Architecture', 'React', 'Engineering'],
+		readingTime: 14,
+		publishedAt: new Date('2024-03-01').toISOString(),
+		updatedAt: new Date('2024-03-01').toISOString(),
+		...author,
+	});
 
-  db.post.create({
-    slug: 'vite-optimization-guide',
-    title: 'Vite 构建优化实战：让你的应用快人一步',
-    excerpt:
-      '从开发体验到生产构建，全面解析 Vite 的优化技巧，包括代码分割、Tree Shaking、动态导入、Bundle 分析。',
-    content: `## Vite 为什么这么快？
+	db.post.create({
+		slug: 'vite-optimization-guide',
+		title: 'Vite 构建优化实战：让你的应用快人一步',
+		excerpt:
+			'从开发体验到生产构建，全面解析 Vite 的优化技巧，包括代码分割、Tree Shaking、动态导入、Bundle 分析。',
+		content: `## Vite 为什么这么快？
 
 Vite 的开发服务器快有两个核心原因：
 
@@ -1019,21 +1019,21 @@ export default defineConfig({
 
 Vite 的生态还在快速发展，但核心理念已经稳定：**开发时追求极致速度，生产时追求极致优化**。
 `,
-    coverImage:
-      'https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=800',
-    tags: ['Vite', '性能优化', 'Engineering'],
-    readingTime: 8,
-    publishedAt: new Date('2024-02-10').toISOString(),
-    updatedAt: new Date('2024-02-10').toISOString(),
-    ...author,
-  });
+		coverImage:
+			'https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=800',
+		tags: ['Vite', '性能优化', 'Engineering'],
+		readingTime: 8,
+		publishedAt: new Date('2024-02-10').toISOString(),
+		updatedAt: new Date('2024-02-10').toISOString(),
+		...author,
+	});
 
-  db.post.create({
-    slug: 'react-testing-best-practices',
-    title: 'React 测试最佳实践：什么值得测，什么不值得测',
-    excerpt:
-      '用 Vitest + Testing Library + MSW 构建可靠的测试体系，聚焦"测试用户行为而非实现细节"的核心理念，避免常见误区。',
-    content: `## 测试金字塔 vs 测试奖杯
+	db.post.create({
+		slug: 'react-testing-best-practices',
+		title: 'React 测试最佳实践：什么值得测，什么不值得测',
+		excerpt:
+			'用 Vitest + Testing Library + MSW 构建可靠的测试体系，聚焦"测试用户行为而非实现细节"的核心理念，避免常见误区。',
+		content: `## 测试金字塔 vs 测试奖杯
 
 传统的"测试金字塔"提倡大量单元测试。但对于 React 应用，**测试奖杯**（Test Trophy）更合适：
 
@@ -1168,29 +1168,29 @@ it('API 错误时显示通知', async () => {
 4. **每个测试独立**：在 \`beforeEach\` 中重置数据
 5. **测试快乐路径和错误路径**：别只测成功场景
 `,
-    coverImage:
-      'https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800',
-    tags: ['Testing', 'Vitest', 'React'],
-    readingTime: 13,
-    publishedAt: new Date('2024-01-15').toISOString(),
-    updatedAt: new Date('2024-01-15').toISOString(),
-    ...author,
-  });
+		coverImage:
+			'https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800',
+		tags: ['Testing', 'Vitest', 'React'],
+		readingTime: 13,
+		publishedAt: new Date('2024-01-15').toISOString(),
+		updatedAt: new Date('2024-01-15').toISOString(),
+		...author,
+	});
 
-  // 种一些示例评论
-  const allPosts = db.post.getAll();
-  if (allPosts.length > 0) {
-    db.comment.create({
-      postId: allPosts[0].id,
-      authorName: 'Alice',
-      content: '写得很好！useCallback 和 useMemo 的误用确实是很常见的问题。',
-      createdAt: new Date('2024-03-16').toISOString(),
-    });
-    db.comment.create({
-      postId: allPosts[0].id,
-      authorName: 'Bob',
-      content: '感谢分享，自定义 Hook 那部分让我豁然开朗。',
-      createdAt: new Date('2024-03-17').toISOString(),
-    });
-  }
+	// 种一些示例评论
+	const allPosts = db.post.getAll();
+	if (allPosts.length > 0) {
+		db.comment.create({
+			postId: allPosts[0].id,
+			authorName: 'Alice',
+			content: '写得很好！useCallback 和 useMemo 的误用确实是很常见的问题。',
+			createdAt: new Date('2024-03-16').toISOString(),
+		});
+		db.comment.create({
+			postId: allPosts[0].id,
+			authorName: 'Bob',
+			content: '感谢分享，自定义 Hook 那部分让我豁然开朗。',
+			createdAt: new Date('2024-03-17').toISOString(),
+		});
+	}
 }

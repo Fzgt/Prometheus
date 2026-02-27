@@ -8,38 +8,38 @@ import { createMemoryRouter, RouterProvider } from 'react-router';
 import { Notifications } from '@/components/ui/notifications';
 
 type RenderAppOptions = {
-  initialEntries?: string[];
+	initialEntries?: string[];
 };
 
 export function renderApp(options: RenderAppOptions = {}) {
-  const { initialEntries = ['/'] } = options;
+	const { initialEntries = ['/'] } = options;
 
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: { retry: false },
-      mutations: { retry: false },
-    },
-  });
+	const queryClient = new QueryClient({
+		defaultOptions: {
+			queries: { retry: false },
+			mutations: { retry: false },
+		},
+	});
 
-  const router = createMemoryRouter(
-    [{ path: '*', element: <div data-testid="app-root" /> }],
-    { initialEntries },
-  );
+	const router = createMemoryRouter(
+		[{ path: '*', element: <div data-testid="app-root" /> }],
+		{ initialEntries },
+	);
 
-  const Wrapper = ({ children }: { children: React.ReactNode }) => (
-    <QueryClientProvider client={queryClient}>
-      <HelmetProvider>
-        <Notifications />
-        {children}
-      </HelmetProvider>
-    </QueryClientProvider>
-  );
+	const Wrapper = ({ children }: { children: React.ReactNode }) => (
+		<QueryClientProvider client={queryClient}>
+			<HelmetProvider>
+				<Notifications />
+				{children}
+			</HelmetProvider>
+		</QueryClientProvider>
+	);
 
-  return {
-    ...render(<RouterProvider router={router} />, { wrapper: Wrapper }),
-    queryClient,
-    user: userEvent.setup(),
-  };
+	return {
+		...render(<RouterProvider router={router} />, { wrapper: Wrapper }),
+		queryClient,
+		user: userEvent.setup(),
+	};
 }
 
 export { render, screen, waitFor, userEvent };

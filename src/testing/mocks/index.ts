@@ -3,7 +3,7 @@ import { postsHandlers } from './handlers/posts';
 import { tagsHandlers } from './handlers/tags';
 
 export const handlers = [
-  ...postsHandlers,
-  ...commentsHandlers,
-  ...tagsHandlers,
+	...postsHandlers,
+	...commentsHandlers,
+	...tagsHandlers,
 ];

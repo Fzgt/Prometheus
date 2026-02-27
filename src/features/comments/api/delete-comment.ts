@@ -5,32 +5,32 @@ import { api } from '@/lib/api-client';
 import { type MutationConfig } from '@/lib/react-query';
 
 export const deleteComment = (
-  commentId: string,
+	commentId: string,
 ): Promise<{ success: boolean }> => {
-  return api.delete(`/api/comments/${commentId}`);
+	return api.delete(`/api/comments/${commentId}`);
 };
 
 type UseDeleteCommentOptions = {
-  postId: string;
-  mutationConfig?: MutationConfig<typeof deleteComment>;
+	postId: string;
+	mutationConfig?: MutationConfig<typeof deleteComment>;
 };
 
 export const useDeleteComment = ({
-  postId,
-  mutationConfig,
+	postId,
+	mutationConfig,
 }: UseDeleteCommentOptions) => {
-  const queryClient = useQueryClient();
-  const { addNotification } = useNotifications();
+	const queryClient = useQueryClient();
+	const { addNotification } = useNotifications();
 
-  return useMutation({
-    mutationFn: deleteComment,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['comments', postId] });
-      addNotification({
-        type: 'success',
-        title: '评论已删除',
-      });
-    },
-    ...mutationConfig,
-  });
+	return useMutation({
+		mutationFn: deleteComment,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['comments', postId] });
+			addNotification({
+				type: 'success',
+				title: '评论已删除',
+			});
+		},
+		...mutationConfig,
+	});
 };
