@@ -1,3 +1,16 @@
+/**
+ * =============================================================================
+ * 📖 404 页面 (Not Found Page)
+ * =============================================================================
+ *
+ * 在路由配置中通过 path: '*' 匹配所有未定义的路径。
+ *
+ * 【Framer Motion - scale 动画】
+ * initial={{ scale: 0.8 }} → 初始 80% 大小
+ * animate={{ scale: 1 }} → 放大到 100%
+ * 配合 opacity 产生"弹入"效果。
+ * =============================================================================
+ */
 import { motion } from 'framer-motion';
 import { Home } from 'lucide-react';
 import { Link } from 'react-router';
@@ -16,6 +29,7 @@ export function NotFoundPage() {
 					animate={{ scale: 1, opacity: 1 }}
 					transition={{ duration: 0.4 }}
 				>
+					{/* text-muted/50：muted 颜色 + 50% 透明度 */}
 					<p className="text-8xl font-black text-muted/50">404</p>
 				</motion.div>
 				<div>
@@ -24,6 +38,7 @@ export function NotFoundPage() {
 						你访问的页面不存在或已被删除
 					</p>
 				</div>
+				{/* asChild：Button 样式应用到 Link 上 */}
 				<Button asChild>
 					<Link to={paths.home.getHref()}>
 						<Home className="size-4" />

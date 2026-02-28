@@ -1,26 +1,203 @@
 {
+  /**
+   * ==========================================================================
+   * 📖 TypeScript 编译配置 (TypeScript Compiler Options)
+   * ==========================================================================
+   *
+   * tsconfig.json 控制 TypeScript 编译器的行为。
+   * 注意：在 Vite 项目中，TypeScript 只做类型检查（type checking），
+   * 实际的代码转换由 esbuild/SWC 完成（速度快 10-100 倍）。
+   *
+   * 所以这里的配置主要影响：
+   * 1. IDE 的智能提示和错误检查
+   * 2. tsc --noEmit 命令的类型检查
+   * 3. 路径别名的解析
+   * ==========================================================================
+   */
   "compilerOptions": {
+    /**
+     * 【target: "ESNext"】
+     * 编译输出的 JavaScript 版本。
+     * ESNext = 最新的 ECMAScript 标准。
+     * 因为 Vite/esbuild 负责实际编译，这里设置 ESNext 即可。
+     */
     "target": "ESNext",
+
+    /**
+     * 【lib】
+     * 告诉 TypeScript 运行环境中有哪些全局 API：
+     * - "dom" → document、window、HTMLElement 等浏览器 API
+     * - "dom.iterable" → NodeList.forEach 等可迭代 DOM API
+     * - "esnext" → Promise、Map、Set 等最新 ES 标准 API
+     */
     "lib": ["dom", "dom.iterable", "esnext"],
+
+    /**
+     * 【allowJs: true】
+     * 允许在项目中混用 .js 和 .ts 文件。
+     * 对于渐进式迁移很有用（先把项目跑起来，再逐步改为 TS）。
+     */
     "allowJs": true,
+
+    /**
+     * 【skipLibCheck: true】
+     * 跳过 node_modules 中 .d.ts 文件的类型检查。
+     * 好处：编译速度大幅提升（不检查数千个第三方类型）。
+     * 代价：如果第三方类型有错误，不会被发现（极少见）。
+     * 生产项目中几乎都会开启这个选项。
+     */
     "skipLibCheck": true,
+
+    /**
+     * 【esModuleInterop: true】
+     * 让 ES Module 和 CommonJS 模块的 import 方式兼容。
+     *
+     * 没有这个选项时：
+     *   import React from 'react'; // ❌ 报错：没有 default export
+     *   import * as React from 'react'; // ✅ 必须这样写
+     *
+     * 开启后：
+     *   import React from 'react'; // ✅ 自动兼容
+     */
     "esModuleInterop": true,
+
+    /**
+     * 【allowSyntheticDefaultImports: true】
+     * 允许 import xxx from 'module' 即使模块没有 default export。
+     * 这是 esModuleInterop 的类型层面补充。
+     */
     "allowSyntheticDefaultImports": true,
+
+    /**
+     * 【strict: true】 ⭐ 最重要的选项
+     * 开启所有严格类型检查，包括：
+     * - strictNullChecks → null/undefined 不能赋给其他类型
+     * - strictFunctionTypes → 函数参数类型严格检查
+     * - strictPropertyInitialization → 类属性必须初始化
+     * - noImplicitAny → 不允许隐式 any
+     * - noImplicitThis → 不允许隐式 this
+     *
+     * 强烈建议在新项目中开启。关闭 strict 会失去 TypeScript 的大部分价值。
+     */
     "strict": true,
+
+    /**
+     * 【forceConsistentCasingInFileNames: true】
+     * 强制 import 路径的大小写与文件系统一致。
+     * macOS 的文件系统默认不区分大小写（HFS+），
+     * 但 Linux 区分，这个选项避免了跨平台的 bug。
+     *
+     * 例如：文件名是 MyComponent.tsx
+     * import from './mycomponent' → ❌ 编译错误
+     * import from './MyComponent' → ✅
+     */
     "forceConsistentCasingInFileNames": true,
+
+    /**
+     * 【noFallthroughCasesInSwitch: true】
+     * switch 语句中不允许 case 穿透（fall-through）。
+     * 每个 case 必须有 break、return 或 throw。
+     * 防止意外遗忘 break 导致的 bug。
+     */
     "noFallthroughCasesInSwitch": true,
+
+    /**
+     * 【module: "esnext"】
+     * 输出的模块系统格式。
+     * "esnext" → 使用 ES Module（import/export）
+     * Vite 要求必须使用 ESM。
+     */
     "module": "esnext",
+
+    /**
+     * 【moduleResolution: "bundler"】 ⭐ Vite 项目推荐
+     * 模块解析策略。告诉 TypeScript 如何找到 import 的模块。
+     *
+     * "bundler" 是 TS 5.0+ 新增的选项，专为 Vite/webpack 等打包器设计：
+     * - 支持 package.json 的 exports 字段
+     * - 支持导入 .ts 文件时省略扩展名
+     * - 不强制 .js 扩展名（传统 "node" 和 "node16" 策略要求）
+     *
+     * 如果你用的是 TS 4.x，应该用 "node"。
+     */
     "moduleResolution": "bundler",
+
+    /**
+     * 【resolveJsonModule: true】
+     * 允许 import JSON 文件：
+     * import data from './data.json';
+     * TypeScript 会自动推断 JSON 的类型。
+     */
     "resolveJsonModule": true,
+
+    /**
+     * 【noEmit: true】 ⭐ Vite 项目必需
+     * TypeScript 不输出任何 JS 文件。
+     * 因为 Vite 使用 esbuild/SWC 做实际编译，
+     * TypeScript 只负责类型检查。
+     */
     "noEmit": true,
+
+    /**
+     * 【jsx: "react-jsx"】
+     * JSX 转换方式。
+     * "react-jsx" → 使用 React 17+ 的新 JSX 转换
+     *   → 不需要在每个文件 import React from 'react'
+     *   → 自动注入 _jsx() 运行时函数
+     *
+     * 旧方式 "react" → 需要手动 import React（React 16 及以前）
+     */
     "jsx": "react-jsx",
+
+    /**
+     * 【types】
+     * 额外引入的全局类型定义：
+     * - "vite/client" → import.meta.env 的类型、.svg/.css 模块声明
+     * - "vitest/globals" → describe/it/expect 等全局测试函数的类型
+     */
     "types": ["vite/client", "vitest/globals"],
+
+    /**
+     * 【isolatedModules: true】 ⭐ Vite 项目必需
+     * 确保每个文件都可以被独立编译。
+     * esbuild 是逐文件编译的（不像 tsc 可以看到整个项目），
+     * 所以禁止了一些需要跨文件信息的 TS 特性：
+     * - const enum（需要内联到其他文件）
+     * - export = / import = 语法
+     * - 纯类型的 re-export（需要用 export type 代替）
+     */
     "isolatedModules": true,
+
+    /**
+     * 【路径别名 (Path Aliases)】
+     * baseUrl: "." → 路径相对于项目根目录
+     * paths: { "@/*": ["./src/*"] }
+     *
+     * 效果：
+     *   import { Button } from '@/components/ui/button';
+     *   → 实际路径 ./src/components/ui/button
+     *
+     * 好处：
+     * 1. 避免相对路径地狱：../../components → @/components
+     * 2. 移动文件后不需要修改 import 路径
+     *
+     * 注意：这只是 TypeScript 层面的别名。
+     * Vite 通过 vite-tsconfig-paths 插件读取这个配置，
+     * 实际打包时也能正确解析 @/ 路径。
+     */
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
   },
+
+  /**
+   * 【include / exclude】
+   * include: ["src"] → 只检查 src 目录下的文件
+   * exclude: ["node_modules"] → 排除 node_modules
+   *
+   * 缩小检查范围可以提升 IDE 性能和 tsc 速度。
+   */
   "include": ["src"],
   "exclude": ["node_modules"]
 }
