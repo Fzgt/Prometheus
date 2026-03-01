@@ -1,54 +1,7 @@
-<!--
-  =============================================================================
-  📖 HTML 入口文件 (Entry HTML)
-  =============================================================================
-
-  这是整个单页应用（SPA）的唯一 HTML 文件。
-  Vite 开发服务器和生产构建都以此文件为入口。
-
-  【知识点 - SPA 的 HTML 结构】
-  单页应用只有一个 HTML 文件，所有页面都由 JavaScript 动态渲染。
-  HTML 文件只需要：
-  1. 基本的 <head> 标签（meta、字体等）
-  2. 一个空的 <div id="root">（React 挂载点）
-  3. 引入入口 JS 文件
-
-  【知识点 - lang="zh-CN"】
-  告诉浏览器和屏幕阅读器页面内容是简体中文。
-  这影响：
-  1. 屏幕阅读器选择中文语音引擎
-  2. 浏览器选择合适的默认字体
-  3. 搜索引擎的语言检测
-
-  【知识点 - Vite 的 HTML 处理】
-  Vite 在开发模式下：
-  → 直接提供 index.html，通过 <script type="module"> 加载 TS/TSX
-  → 浏览器发起 import 请求时，Vite 按需编译该文件
-
-  Vite 在生产构建时：
-  → 将 <script src="/src/main.tsx"> 替换为打包后的 JS 文件
-  → 自动注入 CSS <link> 标签
-  → 自动处理资源哈希（cache busting）
-
-  【知识点 - preconnect 预连接】
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  告诉浏览器提前建立 TCP+TLS 连接到字体服务器。
-  后续加载字体文件时可以跳过连接建立步骤，节省 100-200ms。
-
-  crossorigin 属性在 fonts.gstatic.com 上是必需的，
-  因为字体文件通过 CORS 请求加载。
-
-  【知识点 - Google Fonts 的 display=swap】
-  URL 参数 display=swap 对应 CSS 的 font-display: swap。
-  效果：字体加载期间先用系统字体显示文字（FOUT - Flash of Unstyled Text），
-  字体加载完成后再切换。这比等字体加载完再显示文字（FOIT）的体验更好。
-  =============================================================================
--->
 <!doctype html>
 <html lang="zh-CN">
 	<head>
 		<meta charset="UTF-8" />
-		<!-- favicon：浏览器标签页图标 -->
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<!--
 			viewport 设置：响应式设计的基础
@@ -60,15 +13,6 @@
 		<!-- 默认标题（会被 react-helmet-async 的 Head 组件覆盖） -->
 		<title>Prometheus</title>
 
-		<!--
-			Google Fonts 预连接 + 字体加载
-			1. preconnect 到 fonts.googleapis.com（CSS 文件）
-			2. preconnect 到 fonts.gstatic.com（字体文件，需要 crossorigin）
-			3. 加载字体 CSS（包含 @font-face 声明）
-
-			Inter:wght@100..900 → 可变字体，包含 100-900 所有字重
-			JetBrains Mono:wght@400;500 → 代码字体，只加载 400 和 500 字重
-		-->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
@@ -77,14 +21,6 @@
 		/>
 	</head>
 	<body>
-		<!--
-			React 挂载点
-			main.tsx 中的 createRoot(document.getElementById('root')!) 会找到这个 div，
-			并将整个 React 组件树渲染到这里面。
-
-			为什么是 div 而不是其他元素？
-			→ 约定俗成。任何块级元素都行，但 div 是最中性的选择。
-		-->
 		<div id="root"></div>
 		<!--
 			type="module" 告诉浏览器这是 ES Module。
