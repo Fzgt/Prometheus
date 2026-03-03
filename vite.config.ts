@@ -66,15 +66,12 @@ export default defineConfig({
 
 	/**
 	 * 【插件列表】
-	 * react() → React Fast Refresh + JSX 转换
-	 * viteTsconfigPaths() → 支持 tsconfig.json 中的 path aliases
+	 * react()插件 → 用来热更新和JSX转换
+	 * viteTsconfigPaths()插件 → 用来识别tsconfig.json中的路径别名（如 @/ → ./src/）
 	 */
 	plugins: [react(), viteTsconfigPaths()],
 
 	/**
-	 * 【开发服务器配置】
-	 * port: 3000 → 开发服务器端口
-	 *
 	 * 其他常用选项（本项目未使用，但值得了解）：
 	 * - open: true → 启动后自动打开浏览器
 	 * - host: true → 监听所有地址（允许局域网访问，移动端调试必备）
@@ -94,7 +91,7 @@ export default defineConfig({
 	},
 
 	/**
-	 * 【Vitest 测试配置】
+	 * 【Vitest 测试配置 这里配的 单元测试和组件测试，不包含e2e】
 	 *
 	 * globals: true
 	 * → 自动注入 describe、it、expect 等全局函数

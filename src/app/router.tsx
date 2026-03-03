@@ -1,8 +1,4 @@
 /**
- * =============================================================================
- * 📖 路由配置 (Router Configuration)
- * =============================================================================
- *
  * 【知识点 1 - React Router 7 的 Library 模式】
  * React Router 7 有两种模式：
  *   - Framework 模式：类似 Next.js，支持 SSR、文件系统路由
@@ -111,24 +107,6 @@ const router = createBrowserRouter([
 	},
 ]);
 
-/**
- * 【RouterProvider 与旧版写法的对比】
- * 旧版 React Router（v5/v6 早期）：
- *   <BrowserRouter>
- *     <Routes>
- *       <Route path="/" element={<Home />} />
- *     </Routes>
- *   </BrowserRouter>
- *
- * 新版 React Router 7：
- *   const router = createBrowserRouter([...]);
- *   <RouterProvider router={router} />
- *
- * 新版的优势：
- *   1. 支持 Data API（loader、action）实现路由级数据预取
- *   2. 路由配置是纯数据，可以在组件外定义
- *   3. 更好的 TypeScript 支持
- */
 export function AppRouter() {
 	return <RouterProvider router={router} />;
 }

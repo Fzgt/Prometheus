@@ -51,6 +51,8 @@ import './index.css';
  */
 async function enableMocking() {
 	// 如果环境变量不是 'true'，直接返回，不加载任何 mock 代码
+	//
+	console.log(import.meta.env);
 	if (import.meta.env.VITE_APP_ENABLE_API_MOCKING !== 'true') return;
 
 	// 动态导入 MSW 浏览器端 worker
